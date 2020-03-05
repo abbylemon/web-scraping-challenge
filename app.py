@@ -16,9 +16,9 @@ def echo():
 
     print("----->displaying title<-----")
 
-    product_info = mongo.db/collection.find_one()    
+    product_info = mongo.db.collection.find_one()    
 
-    return render_template("index. html", walmart_product=product_info)
+    return render_template("index.html", walmart_product=product_info)
     
     print("----->displayed data on page<-----")
 

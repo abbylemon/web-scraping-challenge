@@ -18,9 +18,10 @@
                 <div>
                     <ul style="list-style: none;">
                     
-                        <!-- {% for product in walmart_product %} -->
-                        <li style="color:brown">{{ walmart_product.Name }}</li>
-                        <!-- {% endfor %} -->
+                        {% for product in walmart_product %}
+                        <li style="color:brown;">{{ product.Name }}</li>
+                        <li style="color: brown;">{{ product.product_name }}</li>
+                        {% endfor %}
 
                     </ul>
                 </div>
