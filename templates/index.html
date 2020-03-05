@@ -14,18 +14,24 @@
             <div class="jumbotron text-center">
 
                 <h1>{{ text }}</h1>
+                <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Click Here to Scrape Walmart for Room Air Purifiers!</a></p>
 
-                <div>
-                    <ul style="list-style: none;">
-                    
-                        {% for product in walmart_product %}
-                        <li style="color:brown;">{{ product.Name }}</li>
-                        <li style="color: brown;">{{ product.product_name }}</li>
-                        {% endfor %}
+            <div>
 
-                    </ul>
+            <div class="row" id="walmart-scrape">
+                <div class="col-me-12">
+
+                    {% for product in walmart_product %}
+                    <h4 class="heading">{{ product.Name }}</h4>
+                    <h4 class="headding">{{ product.product_name }}</h4>
+                    {% endfor %}
+
+                    {% for product in product_info %}
+                    <h4 class="heading">{{ product.Name }}</h4>
+                    <h4 class="headding">{{ product.product_name }}</h4>
+                    {% endfor %}
+
                 </div>
-
             </div>
         </div>
     </body>

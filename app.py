@@ -16,7 +16,7 @@ def echo():
 
     print("----->displaying title<-----")
 
-    product_info = mongo.db.collection.find_one()    
+    product_info = list(collection.find())    
 
     return render_template("index.html", walmart_product=product_info)
     
@@ -24,6 +24,7 @@ def echo():
 
 @app.route("/scrape")
 def scrape():
+
 
     # run the scrape
     product_data = ScrapingDev.scrape_info()
@@ -33,7 +34,7 @@ def scrape():
     mongo.db.collection.update({}, product_data, upsert=True)
     print('----->loaded data into mongo<-----')
 
-    return redirect("/")
+    return redirect("/", code=302)
 
 
 if __name__ == "__main__":
