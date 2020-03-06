@@ -11,6 +11,10 @@ Store the values from the scrape in MongoDB
 
 Create a site that will access the scrape function with the click of a button and display the scraped results on the page
 
-Bonus: 
+### Bonus: 
+
 Collect the reviews for each product found.
+
 Create a second button that will scrape for the review data.
+
+Make the walmart search dynamic (ie, not just search for room air purifiers)
