@@ -17,20 +17,21 @@
                 <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Click Here to Scrape Walmart for Room Air Purifiers!</a></p>
 
             </div>
-
-            {% for product in walmart_product %}
-            <div class="col-lg-4">
-                <div class="card" style="width:20rem;">
-                    <img class="card-img-top" src="{{ product.Image }}" alt="{{ product.Name }}">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ product.Name }}</h4>
-                        <h6 class="card_subtitle md-2 text-muted"> Cost: {{ product.Price }}</h6>
-                        <p class="card-text">{{ product.Num_Stars_Reviews }}</p>
-                        <a href="{{ product.Link }}" target="_blank" class="btn btn-primary">Checkout This Product</a>
+            <div class="row">
+                {% for product in walmart_product %}
+                <div class="col-lg-4">
+                    <div class="card" style="width:20rem;">
+                        <img class="card-img-top" src="{{ product.Image }}" alt="{{ product.Name }}">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ product.Name }}</h4>
+                            <h6 class="card_subtitle md-2 text-muted"> Cost: {{ product.Price }}</h6>
+                            <p class="card-text">{{ product.Num_Stars_Reviews }}</p>
+                            <a href="{{ product.Link }}" target="_blank" class="btn btn-primary">Checkout This Product</a>
+                        </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </body>
 
