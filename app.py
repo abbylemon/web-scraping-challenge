@@ -11,16 +11,17 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/walmart_product_db")
 
 # create route that renders index.html template
 @app.route("/")
-def echo():
-    return render_template("index.html", text="Scraped Walmart RAP Info")
+def home():
+
+    print("----->HOME<-----")
+
+    # return render_template("index.html", text="Scraped Walmart RAP Info")
 
     print("----->displaying title<-----")
 
-    product_info = list(collection.find())    
+    product_info = list(mongo.db.collection.find())
 
-    return render_template("index.html", walmart_product=product_info)
-    
-    print("----->displayed data on page<-----")
+    return render_template("index.html", walmart_product=product_info, text="Scraped Walmart RAP Info")
 
 @app.route("/scrape")
 def scrape():
