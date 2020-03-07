@@ -28,7 +28,21 @@ def scrape():
     print('----->scraping finished<-----')
 
     # update the database
-    mongo.db.collection.insert_many(product_data)
+    col = mongo.db.collection
+
+    # col.drop()
+    for item in product_data:
+        col.update_one(
+            {'Name':item['Name']},
+            {
+                '$set': {
+                    'Link':item['Link'],
+                    'Image':item['Image'],
+                    'Num_Stars_Reviews':item['Num_Stars_Reviews'],
+                    'Price':item['Price']
+                    }
+            }, upsert=True)
+
     print('----->loaded data into mongo<-----')
 
     return redirect("/")

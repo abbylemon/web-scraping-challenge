@@ -29,69 +29,55 @@ def scrape_info():
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
 
-    products = soup.find_all('div', class_='search-result-gridview-item')
+    pages = [1,2,3,4,5,6,7,8]
 
-    product_links = []
-    product_images = []
-    product_titles = []
-    product_star_reviews = []
-    product_prices = []
+    for page_number in pages:
 
-    product_data = []
+        products = soup.find_all('div', class_='search-result-gridview-item')
 
-    for product in products:
+        product_data = []
 
-        link = product.find('a')
-        href = link['href']
-        product_link = 'https://www.walmart.com' + href
-        # print(product_link)
-        # product_links.append(product_link)
-        # print('----->found link<-----')
+        for product in products:
 
-        img = product.find('img')['src']
-        # print(img)
-        # product_images.append(img)
-        # print('----->found image<-----')
+            try:
+                link = product.find('a')
+                href = link['href']
+                product_link = 'https://www.walmart.com' + href
 
-        product_title = product.find('img')['alt']
-        # print(product_title)
-        # product_titles.append(product_title)
-        # print('----->found title<-----')
+                img = product.find('img')['src']
 
-        stars_review = product.find('span', class_='stars-container')['aria-label']   
-        # print(stars_review)
-        # product_star_reviews.append(stars_review)
-        # print('----->found stars and reviews<-----')
+                product_title = product.find('img')['alt']
 
-        price = product.find('span', class_='price-main')
-        current_price = price.find('span', class_='visuallyhidden').text
-        # print(current_price)
-        # product_prices.append(current_price)
-        # print('----->found price<-----')
+                stars_review = product.find('span', class_='stars-container')['aria-label']   
 
-        print(f"----->scraped product {product_title}<-----")
+                price = product.find('span', class_='price-main')
+                current_price = price.find('span', class_='visuallyhidden').text
 
-    #     browser.click_link_by_partial_href(href)
+                print(f"----->scraped product {product_title}<-----")
 
-        data = {
-            "Link": product_link,
-            "Image": img,
-            "Name": product_title,
-            "Num_Stars_Reviews": stars_review,
-            "Price": current_price
-        }
+            except:
+                pass
 
-        product_data.append(data)
+            data = {
+                "Link": product_link,
+                "Image": img,
+                "Name": product_title,
+                "Num_Stars_Reviews": stars_review,
+                "Price": current_price
+            }
 
-    # db.collection.insert_many(product_data)
+            product_data.append(data)
+
+            '''
+            find the element where the next button is, find_by_css? 
+            then at the end use .click() function to lick on that element
+            '''
+            browser.click_link_by_text(page_number)
 
     browser.quit()
     print('----->exit broswer<-----')
-
+    print(html)
     return product_data
-
-# review = soup.find('div', class_='CustomerReviews-list')
-# print(review)
 
 
 
