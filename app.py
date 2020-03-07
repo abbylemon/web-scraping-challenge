@@ -15,10 +15,6 @@ def home():
 
     print("----->HOME<-----")
 
-    # return render_template("index.html", text="Scraped Walmart RAP Info")
-
-    print("----->displaying title<-----")
-
     product_info = list(mongo.db.collection.find())
 
     return render_template("index.html", walmart_product=product_info, text="Scraped Walmart RAP Info")
@@ -32,10 +28,10 @@ def scrape():
     print('----->scraping finished<-----')
 
     # update the database
-    mongo.db.collection.update({}, product_data, upsert=True)
+    mongo.db.collection.insert_many(product_data)
     print('----->loaded data into mongo<-----')
 
-    return redirect("/", code=302)
+    return redirect("/")
 
 
 if __name__ == "__main__":

@@ -83,7 +83,7 @@ def scrape_info():
 
         product_data.append(data)
 
-    db.collection.insert_many(product_data)
+    # db.collection.insert_many(product_data)
 
     browser.quit()
     print('----->exit broswer<-----')
