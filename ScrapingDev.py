@@ -1,6 +1,3 @@
-
-
-
 from bs4 import BeautifulSoup
 from splinter import Browser
 import time
@@ -29,50 +26,51 @@ def scrape_info():
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
 
-    pages = [1,2,3,4,5,6,7,8]
+    products = soup.find_all('div', class_='search-result-gridview-item')
 
-    for page_number in pages:
+    product_data = []
 
-        products = soup.find_all('div', class_='search-result-gridview-item')
+    for product in products:
 
-        product_data = []
+        try:
+            link = product.find('a')
+            href = link['href']
+            product_link = 'https://www.walmart.com' + href
 
-        for product in products:
+            img = product.find('img')['src']
 
-            try:
-                link = product.find('a')
-                href = link['href']
-                product_link = 'https://www.walmart.com' + href
+            product_title = product.find('img')['alt']
 
-                img = product.find('img')['src']
+            stars_review = product.find('span', class_='stars-container')['aria-label']   
 
-                product_title = product.find('img')['alt']
+            price = product.find('span', class_='price-main')
+            current_price = price.find('span', class_='visuallyhidden').text
 
-                stars_review = product.find('span', class_='stars-container')['aria-label']   
+            print(f"----->scraped product {product_title}<-----")
 
-                price = product.find('span', class_='price-main')
-                current_price = price.find('span', class_='visuallyhidden').text
+        except:
+            pass
 
-                print(f"----->scraped product {product_title}<-----")
+        data = {
+            "Link": product_link,
+            "Image": img,
+            "Name": product_title,
+            "Num_Stars_Reviews": stars_review,
+            "Price": current_price
+        }
 
-            except:
-                pass
+        product_data.append(data)
 
-            data = {
-                "Link": product_link,
-                "Image": img,
-                "Name": product_title,
-                "Num_Stars_Reviews": stars_review,
-                "Price": current_price
-            }
-
-            product_data.append(data)
-
-            '''
-            find the element where the next button is, find_by_css? 
-            then at the end use .click() function to lick on that element
-            '''
-            browser.click_link_by_text(page_number)
+        '''
+        find the element where the next button is, find_by_css? 
+        then at the end use .click() function to lick on that element
+        '''
+        # browser.find_by_css("paginator-btn-next").click()
+        # browser.find_element_by_class_namer("paginator-btn-next").click()
+        # browser.find_element_by_name("paginator-btn-next").click()
+        # browser.find_by_css("button").click()
+        # browser.click_link_by_text(page_number)
+        # browser.find_by_css('button').first.click()
 
     browser.quit()
     print('----->exit broswer<-----')
